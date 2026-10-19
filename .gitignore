@@ -1,0 +1,29 @@
+# Allow-list: only the files below are published. Everything else in this
+# folder (tools, generated listings, manuals, working notes) stays local.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/LICENSE
+
+!/Docs/
+/Docs/*
+!/Docs/EPM_Firmware_Supplement.pdf
+
+!/Analysis/
+/Analysis/*
+!/Analysis/COMMANDS.md
+!/Analysis/NOTES.md
+!/Analysis/FRONTPANEL.md
+!/Analysis/BOOTROM.md
+!/Analysis/BENCH-VERIFICATION.md
+!/Analysis/REVIEW.md
+!/Analysis/DSP/
+/Analysis/DSP/*
+!/Analysis/DSP/STRUCTURE.md
+
+!/Firmware/
+/Firmware/*
+!/Firmware/E4418-A1-09-01.dload
+!/Firmware/E4419-A2-09-01.dload
+!/Firmware/E4418-9A EPM-441-2A EPROM DSP Rev A.01.11 E4418-80023.bin

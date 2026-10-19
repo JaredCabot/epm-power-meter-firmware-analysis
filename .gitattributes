@@ -1,0 +1,11 @@
+# Keep firmware images and PDFs byte-exact (no line-ending conversion, no diffs)
+*.bin   binary
+*.dload binary
+*.pdf   binary
+*.pkl   binary
+
+# Text output: LF everywhere so regenerated files diff cleanly on Windows
+*.py    text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+*.asm   text eol=lf linguist-generated
