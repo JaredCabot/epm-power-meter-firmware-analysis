@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: EPM Firmware Supplement
+    url: https://github.com/JaredCabot/epm-power-meter-firmware-analysis/blob/main/Docs/EPM_Firmware_Supplement.pdf
+    about: "The full reference: undocumented commands, the measurement board and DSP, the sensor EEPROM format, the boot ROM and the device error codes."

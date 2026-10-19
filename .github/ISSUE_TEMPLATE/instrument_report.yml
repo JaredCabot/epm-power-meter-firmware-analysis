@@ -1,0 +1,77 @@
+name: Results from another meter
+description: Report what a command or feature did on your EPM meter, firmware revision or sensor
+title: "[Report]: "
+labels: ["verification"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The findings were checked on one E4419B (firmware A2.09.01, boot ROM A.02.00) with an N8482A and an 8481A. Results from other meters, firmware revisions and sensors show which findings hold across the range. The supplement's Verification Record (Chapter 11) lists what has not been tested yet.
+
+        Please only run read-only commands. Several commands in the supplement write the sensor EEPROM, clear the battery-backed settings or start a firmware download; the supplement marks them with a Caution.
+  - type: dropdown
+    id: model
+    attributes:
+      label: Meter model
+      options:
+        - "E4418B"
+        - "E4419B"
+        - "E4418A"
+        - "E4419A"
+        - "Another EPM model"
+    validations:
+      required: true
+  - type: input
+    id: idn
+    attributes:
+      label: Identification
+      description: "The *IDN? reply, and the DIAG:VERS:BOOT? reply if you ran it."
+      placeholder: "Agilent Technologies,E4418B,GB12345678,A1.09.01 / A.02.00"
+    validations:
+      required: true
+  - type: input
+    id: sensor
+    attributes:
+      label: Sensor(s)
+      placeholder: "8481A on channel A, E4412A on channel B"
+    validations:
+      required: false
+  - type: input
+    id: setup
+    attributes:
+      label: Interface and software
+      placeholder: "GPIB, NI GPIB-USB-HS, Python 3.12 with PyVISA"
+    validations:
+      required: false
+  - type: textarea
+    id: what
+    attributes:
+      label: What did you test?
+      description: The command or feature, and the section of the supplement or notes it relates to.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Commands sent and replies
+      description: Paste the commands and the replies word for word, including any SYST:ERR? output.
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: matches
+    attributes:
+      label: Does it match the documents?
+      options:
+        - "Yes, it matches"
+        - "No, it differs"
+        - "The documents do not cover it"
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Please do not attach sensor EEPROM dumps or calibration data unless asked; they are specific to one sensor or meter.
+    validations:
+      required: false

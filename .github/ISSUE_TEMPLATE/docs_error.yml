@@ -1,0 +1,62 @@
+name: Error in the documentation
+description: Something in the supplement, the analysis notes or the README is wrong, unclear or missing
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the correction. Errors found against a real meter, the firmware images or the original Agilent manuals are the most valuable reports this project gets.
+
+        If you have tried something on your own meter that the documents do not cover, use **Results from another meter** instead.
+  - type: dropdown
+    id: document
+    attributes:
+      label: Which document?
+      options:
+        - "EPM_Firmware_Supplement.pdf"
+        - "Analysis/COMMANDS.md"
+        - "Analysis/NOTES.md"
+        - "Analysis/FRONTPANEL.md"
+        - "Analysis/BOOTROM.md"
+        - "Analysis/DSP/STRUCTURE.md"
+        - "Analysis/BENCH-VERIFICATION.md"
+        - "Analysis/REVIEW.md"
+        - "README.md"
+        - "Something else"
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Page, section, table or address
+      placeholder: "Supplement Table 10-1, page 10-1"
+    validations:
+      required: true
+  - type: textarea
+    id: says
+    attributes:
+      label: What it says now
+      description: Copy the line, or describe the table or figure.
+    validations:
+      required: true
+  - type: textarea
+    id: should
+    attributes:
+      label: What it should say
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: How do you know?
+      description: For a behaviour seen on a meter, give the model, the *IDN? reply (it includes the firmware revision) and the sensor used. For a point in the code, give the firmware image and the address.
+    validations:
+      required: false
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Captures, photos or anything else that helps.
+    validations:
+      required: false
