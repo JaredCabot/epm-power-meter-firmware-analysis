@@ -5,6 +5,7 @@
 !/.gitattributes
 !/README.md
 !/LICENSE
+!/.github/
 
 !/Docs/
 /Docs/*
