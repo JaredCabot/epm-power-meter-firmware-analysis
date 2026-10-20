@@ -236,7 +236,7 @@ registration at 0x06ED50) controls what the parser at 0x06F088 does when a type 
 - Severity 2 (types 6 and 8): if the directory does not list the type, the status becomes 1 and
   nothing is reported. Only a listed block that fails its checksum is treated as critical.
 
-The N8482A on the bench carries no type 6 or 8 block and reads without error, which fits. The Linearity, Temp-Comp and Cal Factor blocks are the cal
+The N8482A on the bench carries no type 6 or 8 block and reads without error, which fits. Its raw EEPROM (read out 21 October 2026, BENCH-VERIFICATION.md) is format 6 with seven directory entries: types 1 to 5 plus types 18 and 19, which the firmware does not register and so ignores. The Cal Factor block is a 9-byte header with the point count at byte 5, then records of u32 frequency in kHz and two u16 factors with 0x4000 = 100 %. The Linearity, Temp-Comp and Cal Factor blocks are the cal
 tables exposed by the `DIAGnostic:DETector:IMAGe` commands in COMMANDS.md. Confirmed on an
 N8482A, where `DIAG:DET:IMAG:BLOC?` lists types 1 (Linearity), 2 (Temp-Comp, format 2),
 3 (Cal Factor), 4 (Header) and 5 (Misc) - see BENCH-VERIFICATION.md.

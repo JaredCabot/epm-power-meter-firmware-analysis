@@ -211,7 +211,7 @@ E-series sensors (internal type 6) carry an EEPROM that the measurement board re
 | Command | Code | Behaviour |
 |---|---|---|
 | `DIAGnostic:DETector:EEPRom <addr>,<byte>` | 0x0DA set, 0x033742 | **Writes one byte to the sensor EEPROM** (bus command (ch<<10)\|0x3004). No range or type check. |
-| `DIAGnostic:DETector:EEPRom? <addr>,<n>` | 0x0DA query, 0x0338DA | Reads n bytes (1 to 16) from addr and returns them as a hex string. n=0 or n>16 returns the text "Min block size is 1" / "Max block size is 16". |
+| `DIAGnostic:DETector:EEPRom? <addr>,<n>` | 0x0DA query, 0x0338DA | Reads n bytes (1 to 16) from addr and returns them as decimal numbers printed with `%d` and no separator, so a reply for n > 1 cannot be split reliably; read one byte per query (`Tools/dump_sensor_eeprom.py`). Confirmed on the E4419B: `DIAG:DET:EEPR? 0,16` returns `60007054110195187024922`. n=0 or n>16 returns the text "Min block size is 1" / "Max block size is 16". |
 | `DIAGnostic:DETector:EEPRom:TEST` and `:TEST?` | 0x0C5 | Runs the EEPROM write test (0x06C022) on addresses 3000 to 3255 and 3500 to 3755: save each window, write a descending pattern, read back, restore. Query form returns 1 (pass) or 0. Prints progress on the debug console. E-series only, else error 0x80. |
 | `DIAGnostic:DETector:EEPRom:READ` | 0x0DF | Pauses measurement, re-reads the sensor data from the EEPROM (sensor method at +0x3BE2), resumes. E-series only. |
 | `DIAGnostic:DETector:READEEPRom?` | 0x0E0 | Re-parses the EEPROM image held at offset 0x288 of the sensor structure and returns the parser status (0x06F088). |

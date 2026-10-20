@@ -174,6 +174,21 @@ the read-out: `FE7A323ACE83B46358DDC05C461B81F753EA055DAD0FDB1591A536E2CB618EFB`
 read-out the whole 1 MB of the two flash chips is accounted for: boot ROM 0x000000 to 0x00A1AF, erased
 to 0x01FFFF, firmware 0x020000 to 0x0F1D5B, erased to 0x0FFFFF.
 
+## Sensor EEPROM read-out, 21 October 2026 (N8482A on channel A)
+
+| Command | Result | Confirms |
+|---|---|---|
+| `DIAG:DET:EEPR? 0,16` | `60007054110195187024922`, no error | the query is read-only and works; the reply is each byte as `%d` with no separator, not hex |
+| `DIAG:DET:EEPR? <addr>,1` for 0 to 8191, twice | identical passes, 122 s each, `SYST:ERR?` `0, "No error"` | one byte per query is unambiguous, about 64 bytes/s |
+| Directory at bytes 0 to 53 | format 6, 7 blocks: types 1 (addr 54, 195 bytes), 2 (249, 286), 3 (535, 185), 4 (2144, 92), 5 (2236, 31), 18 (2267, 5), 19 (2272, 5) | every block's 8-bit checksum matches its directory entry |
+| Types 18 and 19 | five bytes of `AA` each | present in the EEPROM but not registered by the firmware, so the parser ignores them; `IMAG:BLOC?` lists only 1 to 5 |
+| Cal Factor block (type 3) | 9-byte header (`00 00 0A 00 00 16 02 01 00`, 0x16 = 22 points), then 22 records of u32 frequency in kHz and two u16 factors (0x4000 = 100 %): 100 kHz 97.28 %, 50 MHz 100.00 %, 1 GHz 98.91 %, 6 GHz 94.67 %; both factors equal | `DIAG:DET:IMAG:CF:NPTS?` returns 22 |
+| Bytes 720 to 751 | four more records in the same format, 15 to 18 GHz at 100 % | outside the 22-point count and the sensor's range; not read by the meter |
+| Bytes 2277 to 8191 | all 0xFF | no data above the Misc and type 18/19 blocks, and no wrap below 8 KB |
+| `DIAG:DET:IMAG:CF:CORR? <f>` | echoes f | not usable to read an interpolated factor |
+
+Dump: `Work/eeprom/N8482A-MY51520008-eeprom.bin` (8192 bytes, SHA-256 E4711292D212582E6D48F000D875B3517DF19B823119A6BF09BA3C23544059BA). It is this sensor's calibration data, so it stays out of the public repository.
+
 ## Not tested (write/NV, deliberately)
 
 - POKE/POKE:BYTE, DET:EEPR writes, CPF, DOWN:FW, SERV:SNUM/OPT/VERS, DISP:*:SET, SETVar.
